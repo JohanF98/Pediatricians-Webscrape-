@@ -1,0 +1,28 @@
+from bs4 import BeautifulSoup
+import requests 
+from csv import writer
+
+url= "https://www.abpp.org/Directory?SpecialtyIds=9&page=1"
+page = requests.get(url)
+
+soup = BeautifulSoup(page.content, 'html.parser')
+lists = soup.find_all('sections', class_="directory")
+
+with open('PyschologistsDirectory.csv','w', endcoding='utf8', newline='')as f: 
+    thewriter =  writer(f)
+    header = ['Title', 'Name', 'ContactInfo', 'StateLicensed']
+    thewriter.writerow(header)
+
+
+    for list in lists:
+        title = lists.find('a', class_="title").text.replace 
+        ('\n','')
+         Name = lists.find('a', class_="Name").text.replace 
+         ('\n','')
+        ContactInfo = lists.find('a', class_="ContactInfo").text.replace 
+        ('\n','')
+        StateLicensed = lists.find('a', class_="StateLicensed").text.replace 
+         ('\n','')
+        
+        info = [title,Name,ContactInfo,StateLicensed]
+        thewriter.writerow(header)  
